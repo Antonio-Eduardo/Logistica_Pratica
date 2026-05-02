@@ -2,10 +2,10 @@ package entities;
 
 import enums.TipoEvento;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Rastreio {
-    Date dataHora;
+    LocalDateTime dataHora;
     String mensagem;
     TipoEvento tipoEvento;
     Local local;
@@ -13,44 +13,29 @@ public class Rastreio {
     public Rastreio() {
     }
 
-    public Rastreio(Date dataHora, String mensagem, TipoEvento tipoEvento, Local local) {
+    public Rastreio(LocalDateTime dataHora, String mensagem, TipoEvento tipoEvento, Local local) {
         this.dataHora = dataHora;
         this.mensagem = mensagem;
         this.tipoEvento = tipoEvento;
         this.local = local;
     }
 
-    public Date getDataHora() {
+    public LocalDateTime getDataHora() {
         return dataHora;
-    }
-
-    public void setDataHora(Date dataHora) {
-        this.dataHora = dataHora;
     }
 
     public Local getLocal() {
         return local;
     }
 
-    public void setLocal(Local local) {
-        this.local = local;
-    }
-
     public String getMensagem() {
         return mensagem;
-    }
-
-    public void setMensagem(String mensagem) {
-        this.mensagem = mensagem;
     }
 
     public TipoEvento getTipoEvento() {
         return tipoEvento;
     }
 
-    public void setTipoEvento(TipoEvento tipoEvento) {
-        this.tipoEvento = tipoEvento;
-    }
 
     @Override
     public String toString() {

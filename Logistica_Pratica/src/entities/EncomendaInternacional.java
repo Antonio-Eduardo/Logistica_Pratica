@@ -4,32 +4,45 @@ import enums.Prioridade;
 
 public class EncomendaInternacional extends Encomenda {
     double frete;
+    double imposto;
+    private String paisOrigem;
 
-    public EncomendaInternacional(){}
-
-    public EncomendaInternacional(String codigoRastreio, String destinatario, double valorEncomenda, Prioridade prioridade) {
-        super(codigoRastreio, destinatario, valorEncomenda, prioridade);
+    public EncomendaInternacional() {
     }
 
-    public void freteCalculo(){
-        frete = valorEncomenda * 0.10;
+    public EncomendaInternacional(String destinatario, int cpf, Prioridade prioridade, double valorEncomenda, String paisOrigem) {
+        super(destinatario, cpf, prioridade, valorEncomenda);
+        this.paisOrigem = paisOrigem;
     }
-    public void imposto(){
-valorEncomenda += (valorEncomenda * 0.24) + frete;
+
+    @Override
+    public void imposto() {
+        imposto = (valorEncomenda * 0.24);
+    }
+
+    @Override
+    public void frete() {
+        frete = valorEncomenda * 0.1;
     }
 
     public double getFrete() {
         return frete;
     }
 
-    public void setFrete(double frete) {
-        this.frete = frete;
+    public double getImposto() {
+        return imposto;
     }
+
+    public String getPaisOrigem() {
+        return paisOrigem;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("EncomendaNacional{");
         sb.append(super.toString());
-        sb.append("frete=").append(frete);
+        sb.append("pais=").append(paisOrigem);
+        sb.append("frete=").append(this.frete);
         sb.append('}');
         return sb.toString();
     }

@@ -13,19 +13,16 @@ public abstract class Encomenda {
     private String destinatario;
     private Prioridade prioridade;
     protected double valorEncomenda;
-    private int cpf;
+    private long cpf;
 
     public Encomenda(){}
 
-    public Encomenda(String destinatario, int cpf, Prioridade prioridade, double valorEncomenda) {
+    public Encomenda(String destinatario, long cpf, Prioridade prioridade, double valorEncomenda) {
         this.destinatario = destinatario;
         this.cpf = cpf;
         this.prioridade = prioridade;
         this.valorEncomenda = valorEncomenda;
     }
-
-    public abstract void imposto();
-    public abstract  void frete();
     public String getCodigoRastreio() {
         return codigoRastreio;
     }
@@ -42,18 +39,21 @@ public abstract class Encomenda {
         return valorEncomenda;
     }
 
-    public int getCpf() {
+    public long getCpf() {
         return cpf;
+    }
+
+    public void setValorEncomenda(double valorEncomenda) {
+        this.valorEncomenda = valorEncomenda;
     }
 
     @Override
     public String toString() {
 
-        StringBuilder sb = new StringBuilder("====DETALHES DA ENCOMENDA=====\n");
-        sb.append("Codigo de Rastreio: ").append(codigoRastreio).append("\n");
-        sb.append("Destinatario: ").append(destinatario);
-        sb.append("Valor encomenda:").append(valorEncomenda);
-        sb.append("cpf=").append(cpf);
+        StringBuilder sb = new StringBuilder("\nDestinatario= ").append(destinatario);
+        sb.append("\nValor encomenda= ").append(String.format("%.2f R$", valorEncomenda));
+        sb.append("\nCPF= ").append(cpf);
+        sb.append("\nPrioridade= ").append(prioridade);
         return sb.toString();
     }
 }

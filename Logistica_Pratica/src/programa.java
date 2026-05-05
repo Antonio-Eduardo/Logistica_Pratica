@@ -1,3 +1,4 @@
+import LogisticaServicos.ServicosCustosAdicionais;
 import entities.*;
 import enums.Prioridade;
 import enums.TipoEvento;
@@ -16,51 +17,63 @@ public class programa {
 
         int opcao=1;
         while (opcao == 1) {
-            System.out.print("Deseja cadastrar uma encomenda? (1-SIM|2-NAO)");
+            System.out.print("Deseja cadastrar uma encomenda? [1-SIM|2-NAO]");
             opcao = sc.nextInt();
             sc.nextLine();
 
             switch(opcao) {
                 case 1:
-                    System.out.println("Encomenda nacional ou internacional? (1-Nacional|2-Internacional");
+                    System.out.print("Encomenda nacional ou internacional? [1-Nacional|2-Internacional]");
                     int tipo = sc.nextInt();
+                    sc.nextLine();
                     switch (tipo){
                         case 1:
                             System.out.print("Insira o destinatario: ");
                             String destinatarioNacional = sc.nextLine();
                             System.out.print("Insira o CPF: ");
-                            int cpf = sc.nextInt();
+                            long cpf = sc.nextLong();
                             sc.nextLine();
-                            System.out.print("Insira a prioridade(ECONOMICO,SEDEX ou FLASH: ");
+                            System.out.print("Insira a prioridade [ECONOMICO,SEDEX ou FLASH]: ");
                             Prioridade prioridadeNacional = Prioridade.valueOf(sc.nextLine());
                             System.out.print("Valor da encomenda: ");
                             double valorEncomendaNacional = sc.nextDouble();
+                            System.out.print("Valor do frete: ");
+                            double frete = sc.nextDouble();
                             System.out.print("CEP: ");
                             int cep = sc.nextInt();
                             sc.nextLine();
                             Encomenda nacional = new EncomendaNacional(destinatarioNacional,cpf,prioridadeNacional,valorEncomendaNacional,cep);
+                            ServicosCustosAdicionais custos = new ServicosCustosAdicionais(frete);
+                            custos.calcCustos(nacional);
                             encomendas.add(nacional);
                             break;
                         case 2:
                             System.out.print("Insira o destinatario: ");
                             String destinatarioInternacional = sc.nextLine();
                             System.out.print("Insira o numero do documento de identificacao: ");
-                            int identificacaoInternacional = sc.nextInt();
+                            long identificacaoInternacional = sc.nextInt();
                             sc.nextLine();
-                            System.out.print("Insira a prioridade(ECONOMICO,SEDEX ou FLASH: ");
+                            System.out.print("Insira a prioridade [ECONOMICO,SEDEX ou FLASH]: ");
                             Prioridade prioridadeInternacional = Prioridade.valueOf(sc.nextLine());
                             System.out.print("Valor da encomenda: ");
                             double valorEncomendaInternacional = sc.nextDouble();
+                            System.out.print("Valor do frete: ");
+                            double freteIn = sc.nextDouble();
                             System.out.print("Pais origem: ");
                             String paisOrigem = sc.nextLine();
                             sc.nextLine();
                             Encomenda internacional = new EncomendaInternacional(destinatarioInternacional,identificacaoInternacional,prioridadeInternacional,valorEncomendaInternacional,paisOrigem);
+                            ServicosCustosAdicionais custosIn = new ServicosCustosAdicionais(freteIn);
+                            custosIn.calcCustos(internacional);
                             encomendas.add(internacional);
                             break;
                     }
                 case 2:
                     break;
             }
+        }
+        for (Encomenda x : encomendas){
+            System.out.println(x);
         }
     }
 }

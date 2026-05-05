@@ -88,12 +88,17 @@ public class programa {
                 ServicoEncomenda servicoEncomenda = new ServicoEncomenda();
                 System.out.print("Digite o codigo de rastreio da encomenda a ser atualizada: ");
                 String codigo = sc.nextLine();
+
                 Encomenda encomentaEncontrada = servicoEncomenda.busca(encomendas,codigo);
-                System.out.println("Encomenda: \n" + encomentaEncontrada);
-                System.out.println("Altere o status: [POSTAGEM],[EM_TRANSITO],[SAIU_PARA_ENTREGA],[ENTREGUE],[EXTRAVIADO]");
-                TipoEvento attEvento = TipoEvento.valueOf(sc.nextLine());
-                encomentaEncontrada.setTipoEvento(attEvento);
-                break;
+                if (encomentaEncontrada == null){
+                    System.out.println("Encomenda nao encontrada!");
+                }else {
+                    System.out.println("Encomenda: \n" + encomentaEncontrada);
+                    System.out.println("Altere o status: [POSTAGEM],[EM_TRANSITO],[SAIU_PARA_ENTREGA],[ENTREGUE],[EXTRAVIADO]");
+                    TipoEvento attEvento = TipoEvento.valueOf(sc.nextLine());
+                    encomentaEncontrada.atualizarEvento(attEvento);
+                    break;
+                }
             case 2:
                 break;
             default:

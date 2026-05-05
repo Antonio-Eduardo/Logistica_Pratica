@@ -8,6 +8,8 @@ Funcionalidades
 -Cálculo de taxas e impostos 
 -Atualização de status da encomenda 
 -Aplicação de regras de negócio com services
+-Busca de encomenda pelo codigo de rastreio
+-Atualização do status da encomenda e historico com todos os status daquela encomenda
 
 Conceitos aplicados
 -Programação Orientada a Objetos (POO)

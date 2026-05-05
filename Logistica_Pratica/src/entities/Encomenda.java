@@ -1,7 +1,8 @@
 package entities;
-
 import enums.Prioridade;
 import enums.TipoEvento;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Encomenda {
     private String codigoRastreio;
@@ -11,6 +12,7 @@ public abstract class Encomenda {
     protected double valorBase;
     private double valorFinal;
     private String cpf;
+    private List<TipoEvento> historico = new ArrayList<>();
 
     public Encomenda(){}
 
@@ -34,6 +36,18 @@ public abstract class Encomenda {
 
     public double getValorFinal() {
         return valorFinal;
+    }
+    public void atualizarEvento(TipoEvento tipoEvento){
+        historico.add(tipoEvento);
+        this.tipoEvento = tipoEvento;
+    }
+
+    public List<TipoEvento> getHistorico() {
+        return historico;
+    }
+
+    public void setHistorico(List<TipoEvento> historico) {
+        this.historico = historico;
     }
 
     public TipoEvento getTipoEvento() {

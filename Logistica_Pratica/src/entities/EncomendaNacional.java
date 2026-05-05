@@ -7,9 +7,17 @@ public class EncomendaNacional extends Encomenda{
 
     public EncomendaNacional(){super();}
 
-    public EncomendaNacional(String destinatario, long cpf, Prioridade prioridade, double valorEncomenda, int cep) {
-        super(destinatario, cpf, prioridade, valorEncomenda);
+    public EncomendaNacional(String destinatario, String cpf, Prioridade prioridade, double valorBase,String codigoRastreio, int cep) {
+        super(destinatario, cpf, prioridade, valorBase,codigoRastreio);
         this.cep = cep;
+    }
+    @Override
+    public double calcularTaxa(){
+        return valorBase *0.08;
+    }
+    @Override
+    public double impostoServico(){
+        return valorBase * 0.36;
     }
     public int getCep() {
         return cep;

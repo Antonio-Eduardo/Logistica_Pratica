@@ -3,26 +3,27 @@ package entities;
 import enums.Prioridade;
 import enums.TipoEvento;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 public abstract class Encomenda {
     private String codigoRastreio;
     private String destinatario;
     private Prioridade prioridade;
-    protected double valorEncomenda;
-    private long cpf;
+    private TipoEvento tipoEvento;
+    protected double valorBase;
+    private double valorFinal;
+    private String cpf;
 
     public Encomenda(){}
 
-    public Encomenda(String destinatario, long cpf, Prioridade prioridade, double valorEncomenda) {
+    public Encomenda(String destinatario, String cpf, Prioridade prioridade, double valorBase, String codigoRastreio) {
         this.destinatario = destinatario;
         this.cpf = cpf;
         this.prioridade = prioridade;
-        this.valorEncomenda = valorEncomenda;
+        this.valorBase = valorBase;
+        this.codigoRastreio = codigoRastreio;
     }
+
+    public abstract double calcularTaxa();
+    public abstract double impostoServico();
     public String getCodigoRastreio() {
         return codigoRastreio;
     }
@@ -31,29 +32,46 @@ public abstract class Encomenda {
         return destinatario;
     }
 
+    public double getValorFinal() {
+        return valorFinal;
+    }
+
+    public TipoEvento getTipoEvento() {
+        return tipoEvento;
+    }
+
+    public void setTipoEvento(TipoEvento tipoEvento) {
+        this.tipoEvento = tipoEvento;
+    }
+
+    public void setValorFinal(double valorFinal) {
+        this.valorFinal = valorFinal;
+    }
+
     public Prioridade getPrioridade() {
         return prioridade;
     }
 
-    public double getValorEncomenda() {
-        return valorEncomenda;
+    public double getValorBase() {
+        return valorBase;
     }
 
-    public long getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setValorEncomenda(double valorEncomenda) {
-        this.valorEncomenda = valorEncomenda;
+    public void setValorbASE(double valorEncomenda) {
+        this.valorBase = valorEncomenda;
     }
 
     @Override
     public String toString() {
 
         StringBuilder sb = new StringBuilder("\nDestinatario= ").append(destinatario);
-        sb.append("\nValor encomenda= ").append(String.format("%.2f R$", valorEncomenda));
+        sb.append("\nValor Final= ").append(String.format("%.2f R$", valorFinal));
         sb.append("\nCPF= ").append(cpf);
         sb.append("\nPrioridade= ").append(prioridade);
+        sb.append("\nSituacao= ").append(tipoEvento);
         return sb.toString();
     }
 }

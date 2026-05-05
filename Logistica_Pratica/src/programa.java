@@ -1,3 +1,4 @@
+import LogisticaServicos.ServicoEncomenda;
 import LogisticaServicos.ServicosCustosAdicionais;
 import entities.*;
 import enums.Prioridade;
@@ -31,8 +32,9 @@ public class programa {
                             System.out.print("Insira o destinatario: ");
                             String destinatarioNacional = sc.nextLine();
                             System.out.print("Insira o CPF: ");
-                            long cpf = sc.nextLong();
-                            sc.nextLine();
+                            String cpf = sc.nextLine();
+                            System.out.print("Digite um codigo de rastreio: ");
+                            String codigoRastreioNA = sc.nextLine();
                             System.out.print("Insira a prioridade [ECONOMICO,SEDEX ou FLASH]: ");
                             Prioridade prioridadeNacional = Prioridade.valueOf(sc.nextLine());
                             System.out.print("Valor da encomenda: ");
@@ -42,7 +44,8 @@ public class programa {
                             System.out.print("CEP: ");
                             int cep = sc.nextInt();
                             sc.nextLine();
-                            Encomenda nacional = new EncomendaNacional(destinatarioNacional,cpf,prioridadeNacional,valorEncomendaNacional,cep);
+                            Encomenda nacional = new EncomendaNacional(destinatarioNacional,cpf,prioridadeNacional,valorEncomendaNacional,codigoRastreioNA,cep);
+                            nacional.setTipoEvento(TipoEvento.POSTAGEM);
                             ServicosCustosAdicionais custos = new ServicosCustosAdicionais(frete);
                             custos.calcCustos(nacional);
                             encomendas.add(nacional);
@@ -51,8 +54,10 @@ public class programa {
                             System.out.print("Insira o destinatario: ");
                             String destinatarioInternacional = sc.nextLine();
                             System.out.print("Insira o numero do documento de identificacao: ");
-                            long identificacaoInternacional = sc.nextInt();
+                            String identificacaoInternacional = sc.nextLine();
                             sc.nextLine();
+                            System.out.print("Insira o codigo de rastreio: ");
+                            String codigoRastreioIn = sc.nextLine();
                             System.out.print("Insira a prioridade [ECONOMICO,SEDEX ou FLASH]: ");
                             Prioridade prioridadeInternacional = Prioridade.valueOf(sc.nextLine());
                             System.out.print("Valor da encomenda: ");
@@ -62,7 +67,8 @@ public class programa {
                             System.out.print("Pais origem: ");
                             String paisOrigem = sc.nextLine();
                             sc.nextLine();
-                            Encomenda internacional = new EncomendaInternacional(destinatarioInternacional,identificacaoInternacional,prioridadeInternacional,valorEncomendaInternacional,paisOrigem);
+                            Encomenda internacional = new EncomendaInternacional(destinatarioInternacional,identificacaoInternacional,prioridadeInternacional,
+                                    valorEncomendaInternacional,codigoRastreioIn,paisOrigem);
                             ServicosCustosAdicionais custosIn = new ServicosCustosAdicionais(freteIn);
                             custosIn.calcCustos(internacional);
                             encomendas.add(internacional);
@@ -71,6 +77,27 @@ public class programa {
                 case 2:
                     break;
             }
+        }
+        for (Encomenda x : encomendas){
+            System.out.println(x);
+        }
+        System.out.print("Voce deseja atualizar o status da encomenda? [1-SIM|2-NAO]");
+        int opcao1 = sc.nextInt(); sc.nextLine();
+        switch (opcao1){
+            case 1:
+                ServicoEncomenda servicoEncomenda = new ServicoEncomenda();
+                System.out.print("Digite o codigo de rastreio da encomenda a ser atualizada: ");
+                String codigo = sc.nextLine();
+                Encomenda encomentaEncontrada = servicoEncomenda.busca(encomendas,codigo);
+                System.out.println("Encomenda: \n" + encomentaEncontrada);
+                System.out.println("Altere o status: [POSTAGEM],[EM_TRANSITO],[SAIU_PARA_ENTREGA],[ENTREGUE],[EXTRAVIADO]");
+                TipoEvento attEvento = TipoEvento.valueOf(sc.nextLine());
+                encomentaEncontrada.setTipoEvento(attEvento);
+                break;
+            case 2:
+                break;
+            default:
+                System.out.println("Valor invalido");
         }
         for (Encomenda x : encomendas){
             System.out.println(x);

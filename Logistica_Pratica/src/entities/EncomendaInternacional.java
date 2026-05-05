@@ -8,14 +8,20 @@ public class EncomendaInternacional extends Encomenda {
     public EncomendaInternacional() {
     }
 
-    public EncomendaInternacional(String destinatario, long cpf, Prioridade prioridade, double valorEncomenda, String paisOrigem) {
-        super(destinatario, cpf, prioridade, valorEncomenda);
+    public EncomendaInternacional(String destinatario, String cpf, Prioridade prioridade, double valorBase,String codigoRastreio, String paisOrigem) {
+        super(destinatario, cpf, prioridade, valorBase,codigoRastreio);
         this.paisOrigem = paisOrigem;
     }
+    @Override
+    public double calcularTaxa(){return valorBase * 0.15;}
     public String getPaisOrigem() {
         return paisOrigem;
     }
 
+    @Override
+    public double impostoServico(){
+        return valorBase * 0.25;
+    }
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("====[Encomenda Internacional]====");

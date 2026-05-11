@@ -1,8 +1,6 @@
-package LogisticaServicos;
+package services;
 
 import entities.Encomenda;
-import entities.EncomendaInternacional;
-import entities.EncomendaNacional;
 
 public class ServicosCustosAdicionais {
     double frete;
